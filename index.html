@@ -103,39 +103,31 @@ button#adminLogin:hover {
     <p style="text-align: center;">Don't have an account? <a href="register.html">Register</a></p>
   </div>
   
-  <script>
-  document.getElementById("loginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-  
-    // Retrieve user data from localStorage
-    var users = JSON.parse(localStorage.getItem("users")) || [];
-    var authenticatedUser = users.find(function(user) {
-      return user.username === username && user.password === password;
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+    
+     
+      var users = JSON.parse(localStorage.getItem("users")) || [];
+      var authenticatedUser = users.find(function(user) {
+        return user.username === username && user.password === password;
+      });
+    
+      if (authenticatedUser) {
+        alert("Login successful!");
+        window.location.href = "dashboard.html";
+      } else {
+        document.getElementById("errorMessage").textContent = "Error: Invalid username or password";
+        document.getElementById("errorMessage").style.display = "block";
+      }
     });
+    
+    document.getElementById("adminLogin").addEventListener("click", function() {
+      window.location.href = "adminlogin.html"; 
+    });
+    </script>
   
-    if (authenticatedUser) {
-      alert("Login successful!");
-      
-      window.location.href = "dashboard.html";
-    } else {
-      document.getElementById("errorMessage").textContent = "Error: Invalid username or password";
-      document.getElementById("errorMessage").style.display = "block";
-    }
-  });
-  document.getElementById("adminLogin").addEventListener("click", function() {
-  var username = document.getElementById("username").value;
-  var password = document.getElementById("password").value;
-  
-  if (username === "admin" && password === "123456") {
-    alert("Admin login successful!");
-    // Redirect to admin dashboard page after successful login
-    window.location.href = "admdashboard.html"; 
-  } else {
-    alert("Error: Invalid username or password");
-  }
-});
-  </script>
   </body>
 </html>
